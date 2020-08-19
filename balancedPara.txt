@@ -1,0 +1,40 @@
+class Solution {
+public:
+    bool isValid(string s) {
+        vector<int> v;
+        for(int i=0;i<s.length();i++)
+        {
+            if(v.size()==0)
+            {
+                v.push_back(s[i]);
+            }
+            else
+            {
+                if(s[i]== ')' && v.back()=='(')
+                {
+                    v.pop_back();
+                }
+                else
+                if(s[i]== '}' && v.back()=='{')
+                {
+                    v.pop_back();
+                }
+                else
+                if(s[i]== ']' && v.back()=='[')
+                {
+                    v.pop_back();
+                }
+                else
+                {
+                    v.push_back(s[i]);
+                }
+            }
+        }
+        if(v.size()==0)
+        {
+            return true;
+        }
+        else
+            return false;
+    }
+};
