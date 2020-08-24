@@ -1,0 +1,58 @@
+class MedianFinder {
+    priority_queue<int> lo;
+    priority_queue<int, vector<int>, greater<int>> hi;
+public:
+    void addNum(int num)
+    {
+        lo.push(num);
+        hi.push(lo.top());
+        lo.pop();
+        if (lo.size() < hi.size()) {
+            lo.push(hi.top());
+            hi.pop();
+        }
+    }
+    double findMedian()
+    {
+        return lo.size() > hi.size() ? lo.top() : ((double) lo.top() + hi.top()) * 0.5;
+    }
+};
+
+//alternate solution O(nlogn) but will go TLE in leet code
+
+
+class MedianFinder {
+public:
+    /** initialize your data structure here. */
+    vector<int> v;
+    MedianFinder() {
+        v={};
+    }
+    
+    void addNum(int num) {
+        v.push_back(num);
+    }
+    
+    double findMedian() {
+    sort(v.begin(),v.end());
+        if(v.size()%2==0)
+        {
+            int i=(v.size()/2)-1;
+            // i--;
+            int j=i+1;
+            return (double)((v[i]+v[j])/2.0);
+        }
+        else
+        {
+            int i=(v.size()/2);
+            return (double)v[i];
+        }
+    }
+};
+
+/**
+ * Your MedianFinder object will be instantiated and called as such:
+ * MedianFinder* obj = new MedianFinder();
+ * obj->addNum(num);
+ * double param_2 = obj->findMedian();
+ */
