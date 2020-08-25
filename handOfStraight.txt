@@ -1,0 +1,38 @@
+class Solution {
+public:
+    bool isNStraightHand(vector<int>& hand, int W) {
+        map<int ,int> mp;
+        mp.insert(make_pair(INT_MAX,1));
+        for(int i=0;i<hand.size();i++)
+        {
+            if(mp.find(hand[i])==mp.end())
+                mp.insert(make_pair(hand[i],1));
+            else
+            {
+                (mp.find(hand[i]))->second++;
+            }
+        }
+        while(mp.size()>1)
+        {
+            int f=(mp.begin())->first;
+            for(int i=f;i<f+W;i++)
+            {
+                if(mp.find(i)!=mp.end())
+                {
+                    int c=mp.find(i)->second;
+                    if(c==1)
+                    {
+                        mp.erase(mp.find(i));
+                    }
+                    else
+                        mp.find(i)->second--;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+};
