@@ -1,0 +1,19 @@
+class Solution {
+public:
+    int diameterHelper(TreeNode* ptr,int *height) {
+        int lh=0,rh=0,ld=0,rd=0;
+        if(ptr==NULL)
+        {
+        	*height=0;
+        	return 0;
+		}
+		ld=diameterHelper(ptr->left, &lh);
+		rd=diameterHelper(ptr->right, &rh);
+		*height=max(lh,rh)+1;
+		return max(max(ld,rd),lh+rh);
+    }
+    int diameterOfBinaryTree(TreeNode* root) {
+        int height;
+        return diameterHelper(root,&height);
+    }
+};
