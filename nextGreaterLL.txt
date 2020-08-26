@@ -1,0 +1,25 @@
+class Solution {
+public:
+    ListNode* reverse(ListNode* head) {
+        if (!head || !head->next) return head;
+        ListNode* last_node = reverse(head->next);
+        head->next->next = head;
+        head->next = nullptr;
+        return last_node;
+    }
+    
+    vector<int> nextLargerNodes(ListNode* head) {
+        stack <int> s;
+        head = reverse(head);
+        vector <int> ans;
+        while (head != nullptr) {
+            while (!s.empty() && s.top() <= head->val) {
+                s.pop();
+            }
+            s.size() ? ans.push_back(s.top()) : ans.push_back(0);
+            s.push(head->val);
+            head = head->next;
+        }
+        std::reverse(ans.begin(), ans.end());
+        return ans;
+    }
