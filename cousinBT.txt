@@ -1,0 +1,30 @@
+class Solution {
+public:
+    int hight(TreeNode* curr,int &parent,int value,int ht)
+    {
+        if(!curr)
+            return 0;
+        if(curr->val==value)
+            return ht;
+        parent=curr->val;
+        int l=hight(curr->left,parent,value,ht+1);
+        if(l)
+            return l;
+        parent=curr->val;
+        int r=hight(curr->right,parent,value,ht+1);
+        return r;
+    }
+    bool isCousins(TreeNode* root, int x, int y) {
+        if(root->val==x||root->val==y)
+            return false;
+        int parent=-1;
+        int xht=hight(root,parent,x,0);
+        int par=-1;
+        int yht=hight(root,par,y,0);
+        if(parent!=par&&xht==yht)
+        {
+            return true;
+        }
+        return false;
+    }
+};
