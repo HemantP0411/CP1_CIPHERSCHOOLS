@@ -1,0 +1,20 @@
+class Solution {
+public:
+     void flatten(TreeNode* root) {
+        TreeNode* pFirstNode = NULL;
+        flattenCore(root, &pFirstNode);
+    }
+    
+    void flattenCore(TreeNode* root, TreeNode** pFirstNode)
+    {
+        if(root == NULL)
+             return;
+        if(root->right)
+             flattenCore(root->right, pFirstNode);
+        if(root->left)
+             flattenCore(root->left, pFirstNode);
+        root->right = *pFirstNode;
+        root->left = NULL;
+        *pFirstNode = root;
+    }
+};
