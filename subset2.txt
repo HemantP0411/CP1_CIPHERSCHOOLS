@@ -1,0 +1,26 @@
+class Solution {
+public:
+    vector<vector<int> > subsetsWithDup(vector<int> &S) {
+        vector<vector<int> > result;
+        result.push_back(vector<int>(0));
+        sort(S.begin(), S.end());
+        subsetRec(S, 0, S.size(), result, vector<int>(0));
+        return result;
+    }
+    
+    void subsetRec(vector<int>& a, int s, int n, vector<vector<int>>& result, vector<int> cur_vec) {
+        if (s == n) {
+            return;
+        }
+        
+        for (int i = s; i < n; ++i) {
+            // check to avoid duplicate numbers
+            if  (i == s || a[i] != a[i-1]) {
+                cur_vec.push_back(a[i]);
+                result.push_back(cur_vec);
+                subsetRec(a, i+1, n, result, cur_vec);
+                cur_vec.pop_back();
+            }
+        }
+    }
+};
