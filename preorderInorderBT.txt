@@ -1,0 +1,29 @@
+class Solution {
+public:
+   int x;
+    TreeNode* solve(int i, int j, vector<int>& p, unordered_map<int,int> &m)
+    {
+        if(i>j)
+            return NULL;
+        
+        int val = p[x++];
+        TreeNode* r = new TreeNode(val);
+        
+        int ind = m[val];
+        r->left = solve(i,ind-1,p,m);
+        r->right = solve(ind+1,j,p,m);
+        
+        return r;
+    }
+        
+    TreeNode* buildTree(vector<int>& p, vector<int>& in) {
+        int n = p.size();
+        unordered_map<int,int> m;
+        
+        for(int i=0; i<n; i++)
+            m[in[i]] = i;
+        
+        x = 0;
+        return solve(0,n-1,p,m); 
+    }
+};
