@@ -1,0 +1,30 @@
+class Solution {
+public:
+      vector<string> letterCombinations(const string& digits)
+    {
+        vector<string> result;
+        if (digits.empty())
+        {
+            return result;
+        }
+        const char* letter[] = {"", "", "abc", "def", "ghi", "jkl", "mno", "pqrs", "tuv", "wxyz"};
+        string s;
+        doCombinations(digits, letter, 0, result, s);
+        return result;
+    }
+
+    void doCombinations(const string& digits, const char* letter[], int index, vector<string>& result, string& s)
+    {
+        if (index >= digits.size())
+        {
+            result.push_back(s);
+            return;
+        }
+        for (const char* p = letter[digits[index] - '0']; *p != '\0'; ++p)
+        {
+            s.push_back(*p);
+            doCombinations(digits, letter, index + 1, result, s);
+            s.pop_back();
+        }
+    }
+};
